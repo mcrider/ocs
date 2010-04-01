@@ -16,4 +16,5 @@
 	<message key="plugins.citationFormats.mla.displayName">Formato de Citação MLA</message>
 	<message key="plugins.citationFormats.mla.citationFormatName">MLA</message>
 	<message key="plugins.citationFormats.mla.description">Este plugin instala o formato de citação MLA.</message>
+	<message key="plugins.citationFormats.mla.noPages">n. pag.</message>
 </locale>
