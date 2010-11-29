@@ -61,7 +61,7 @@ class PaperFileManager extends FileManager {
 	 * @return int file ID, is false if failure
 	 */
 	function uploadSubmissionFile($fileName, $fileId = null, $overwrite = false) {
-		return $this->handleUpload($fileName, PAPER_FILE_SUBMISSION, $fileId, $overwrite);
+		return $this->handleUpload($fileName, PAPER_FILE_USE_CASE_SUBMISSION, $fileId, $overwrite);
 	}
 
 	/**
@@ -73,7 +73,7 @@ class PaperFileManager extends FileManager {
 	 * @param $overwrite boolean
 	 */
 	function writeSubmissionFile($fileName, &$contents, $mimeType, $fileId = null, $overwrite = true) {
-		return $this->handleWrite($fileName, $contents, $mimeType, PAPER_FILE_SUBMISSION, $fileId, $overwrite);
+		return $this->handleWrite($fileName, $contents, $mimeType, PAPER_FILE_USE_CASE_SUBMISSION, $fileId, $overwrite);
 	}
 
 	/**
@@ -84,7 +84,7 @@ class PaperFileManager extends FileManager {
 	 * @param $overwrite boolean
 	 */
 	function copySubmissionFile($url, $mimeType, $fileId = null, $overwrite = true) {
-		return $this->handleCopy($url, $mimeType, PAPER_FILE_SUBMISSION, $fileId, $overwrite);
+		return $this->handleCopy($url, $mimeType, PAPER_FILE_USE_CASE_SUBMISSION, $fileId, $overwrite);
 	}
 
 	/**
@@ -94,7 +94,7 @@ class PaperFileManager extends FileManager {
 	 * @return int file ID, is false if failure
 	 */
 	function uploadReviewFile($fileName, $fileId = null) {
-		return $this->handleUpload($fileName, PAPER_FILE_REVIEW, $fileId);
+		return $this->handleUpload($fileName, PAPER_FILE_USE_CASE_REVIEW, $fileId);
 	}
 
 	/**
@@ -104,7 +104,7 @@ class PaperFileManager extends FileManager {
 	 * @return int file ID, is false if failure
 	 */
 	function uploadDirectorDecisionFile($fileName, $fileId = null) {
-		return $this->handleUpload($fileName, PAPER_FILE_DIRECTOR, $fileId);
+		return $this->handleUpload($fileName, PAPER_FILE_USE_CASE_DIRECTOR, $fileId);
 	}
 
 	/**
@@ -115,7 +115,7 @@ class PaperFileManager extends FileManager {
 	 * @return int file ID, is null if failure
 	 */
 	function uploadLayoutFile($fileName, $fileId = null, $overwrite = true) {
-		return $this->handleUpload($fileName, PAPER_FILE_LAYOUT, $fileId, $overwrite);
+		return $this->handleUpload($fileName, PAPER_FILE_USE_CASE_LAYOUT, $fileId, $overwrite);
 	}
 
 	/**
@@ -126,7 +126,7 @@ class PaperFileManager extends FileManager {
 	 * @return int file ID, is false if failure
 	 */
 	function uploadSuppFile($fileName, $fileId = null, $overwrite = true) {
-		return $this->handleUpload($fileName, PAPER_FILE_SUPP, $fileId, $overwrite);
+		return $this->handleUpload($fileName, PAPER_FILE_USE_CASE_SUPP, $fileId, $overwrite);
 	}
 
 	/**
@@ -137,7 +137,7 @@ class PaperFileManager extends FileManager {
 	 * @return int file ID, is false if failure
 	 */
 	function uploadPublicFile($fileName, $fileId = null, $overwrite = true) {
-		return $this->handleUpload($fileName, PAPER_FILE_PUBLIC, $fileId, $overwrite);
+		return $this->handleUpload($fileName, PAPER_FILE_USE_CASE_PUBLIC, $fileId, $overwrite);
 	}
 
 	/**
@@ -148,7 +148,7 @@ class PaperFileManager extends FileManager {
 	 * @return int file ID, is false if failure
 	 */
 	function uploadSubmissionNoteFile($fileName, $fileId = null, $overwrite = true) {
-		return $this->handleUpload($fileName, PAPER_FILE_NOTE, $fileId, $overwrite);
+		return $this->handleUpload($fileName, PAPER_FILE_USE_CASE_NOTE, $fileId, $overwrite);
 	}
 
 	/**
@@ -160,7 +160,7 @@ class PaperFileManager extends FileManager {
 	 * @param $overwrite boolean
 	 */
 	function writePublicFile($fileName, &$contents, $mimeType, $fileId = null, $overwrite = true) {
-		return $this->handleWrite($fileName, $contents, $mimeType, PAPER_FILE_PUBLIC, $fileId, $overwrite);
+		return $this->handleWrite($fileName, $contents, $mimeType, PAPER_FILE_USE_CASE_PUBLIC, $fileId, $overwrite);
 	}
 
 	/**
@@ -171,7 +171,7 @@ class PaperFileManager extends FileManager {
 	 * @param $overwrite boolean
 	 */
 	function copyPublicFile($url, $mimeType, $fileId = null, $overwrite = true) {
-		return $this->handleCopy($url, $mimeType, PAPER_FILE_PUBLIC, $fileId, $overwrite);
+		return $this->handleCopy($url, $mimeType, PAPER_FILE_USE_CASE_PUBLIC, $fileId, $overwrite);
 	}
 
 	/**
@@ -183,7 +183,7 @@ class PaperFileManager extends FileManager {
 	 * @param $overwrite boolean
 	 */
 	function writeSuppFile($fileName, &$contents, $mimeType, $fileId = null, $overwrite = true) {
-		return $this->handleWrite($fileName, $contents, $mimeType, PAPER_FILE_SUPP, $fileId, $overwrite);
+		return $this->handleWrite($fileName, $contents, $mimeType, PAPER_FILE_USE_CASE_SUPP, $fileId, $overwrite);
 	}
 
 	/**
@@ -194,7 +194,7 @@ class PaperFileManager extends FileManager {
 	 * @param $overwrite boolean
 	 */
 	function copySuppFile($url, $mimeType, $fileId = null, $overwrite = true) {
-		return $this->handleCopy($url, $mimeType, PAPER_FILE_SUPP, $fileId, $overwrite);
+		return $this->handleCopy($url, $mimeType, PAPER_FILE_USE_CASE_SUPP, $fileId, $overwrite);
 	}
 
 	/**
@@ -217,7 +217,7 @@ class PaperFileManager extends FileManager {
 
 		if (isset($paperFile)) {
 			$fileType = $paperFile->getFileType();
-			$filePath = $this->filesDir . $this->typeToPath($paperFile->getType()) . '/' . $paperFile->getFileName();
+			$filePath = $this->filesDir . $this->useCaseToPath($paperFile->getUseCase()) . '/' . $paperFile->getFileName();
 
 			return parent::readFile($filePath, $output);
 
@@ -248,7 +248,7 @@ class PaperFileManager extends FileManager {
 		}
 
 		foreach ($files as $f) {
-			parent::deleteFile($this->filesDir . $this->typeToPath($f->getType()) . '/' . $f->getFileName());
+			parent::deleteFile($this->filesDir . $this->useCaseToPath($f->getUseCase()) . '/' . $f->getFileName());
 		}
 
 		$paperFileDao->deletePaperFileById($fileId, $revision);
@@ -274,7 +274,7 @@ class PaperFileManager extends FileManager {
 		$paperFile =& $this->getFile($fileId, $revision);
 		if (isset($paperFile)) {
 			$fileType = $paperFile->getFileType();
-			$filePath = $this->filesDir . $this->typeToPath($paperFile->getType()) . '/' . $paperFile->getFileName();
+			$filePath = $this->filesDir . $this->useCaseToPath($paperFile->getUseCase()) . '/' . $paperFile->getFileName();
 
 			return parent::downloadFile($filePath, $fileType, $inline);
 
@@ -299,7 +299,7 @@ class PaperFileManager extends FileManager {
 	 * @return int the file id of the new file.
 	 */
 	function copyToReviewFile($fileId, $revision = null, $destFileId = null) {
-		return $this->copyAndRenameFile($fileId, $revision, PAPER_FILE_REVIEW, $destFileId);
+		return $this->copyAndRenameFile($fileId, $revision, PAPER_FILE_USE_CASE_REVIEW, $destFileId);
 	}
 
 	/**
@@ -310,7 +310,7 @@ class PaperFileManager extends FileManager {
 	 * @return int the file id of the new file.
 	 */
 	function copyToDirectorFile($fileId, $revision = null, $destFileId = null) {
-		return $this->copyAndRenameFile($fileId, $revision, PAPER_FILE_DIRECTOR, $destFileId);
+		return $this->copyAndRenameFile($fileId, $revision, PAPER_FILE_USE_CASE_DIRECTOR, $destFileId);
 	}
 
 	/**
@@ -320,40 +320,40 @@ class PaperFileManager extends FileManager {
 	 * @return int the file id of the new file.
 	 */
 	function copyToLayoutFile($fileId, $revision = null) {
-		return $this->copyAndRenameFile($fileId, $revision, PAPER_FILE_LAYOUT);
+		return $this->copyAndRenameFile($fileId, $revision, PAPER_FILE_USE_CASE_LAYOUT);
 	}
 
 	/**
-	 * Return type path associated with a type code.
-	 * @param $type string
+	 * Return path associated with a use case code.
+	 * @param $useCase string
 	 * @return string
 	 */
-	function typeToPath($type) {
-		switch ($type) {
-			case PAPER_FILE_PUBLIC: return 'public';
-			case PAPER_FILE_SUPP: return 'supp';
-			case PAPER_FILE_NOTE: return 'note';
-			case PAPER_FILE_REVIEW: return 'submission/review';
-			case PAPER_FILE_DIRECTOR: return 'submission/director';
-			case PAPER_FILE_LAYOUT: return 'submission/layout';
-			case PAPER_FILE_SUBMISSION: default: return 'submission/original';
+	function useCaseToPath($useCase) {
+		switch ($useCase) {
+			case PAPER_FILE_USE_CASE_PUBLIC: return 'public';
+			case PAPER_FILE_USE_CASE_SUPP: return 'supp';
+			case PAPER_FILE_USE_CASE_NOTE: return 'note';
+			case PAPER_FILE_USE_CASE_REVIEW: return 'submission/review';
+			case PAPER_FILE_USE_CASE_DIRECTOR: return 'submission/director';
+			case PAPER_FILE_USE_CASE_LAYOUT: return 'submission/layout';
+			case PAPER_FILE_USE_CASE_SUBMISSION: default: return 'submission/original';
 		}
 	}
 
   /**
-   * Return type abbreviation associated with a type code (used for naming files).
-   * @param $type string
+   * Return abbreviation associated with a use case code (used for naming files).
+   * @param $useCase string
    * @return string
    */
-  function typeToAbbrev($type) {
-		switch ($type) {
-			case PAPER_FILE_REVIEW: return 'RV';
-			case PAPER_FILE_DIRECTOR: return 'DR';
-			case PAPER_FILE_LAYOUT: return 'LE';
-			case PAPER_FILE_PUBLIC: return 'PB';
-			case PAPER_FILE_SUPP: return 'SP';
-			case PAPER_FILE_NOTE: return 'NT';
-			case PAPER_FILE_SUBMISSION: default: return 'SM';
+  function useCaseToAbbrev($useCase) {
+		switch ($useCase) {
+			case PAPER_FILE_USE_CASE_REVIEW: return 'RV';
+			case PAPER_FILE_USE_CASE_DIRECTOR: return 'DR';
+			case PAPER_FILE_USE_CASE_LAYOUT: return 'LE';
+			case PAPER_FILE_USE_CASE_PUBLIC: return 'PB';
+			case PAPER_FILE_USE_CASE_SUPP: return 'SP';
+			case PAPER_FILE_USE_CASE_NOTE: return 'NT';
+			case PAPER_FILE_USE_CASE_SUBMISSION: default: return 'SM';
 		}
 	}
 
@@ -361,15 +361,15 @@ class PaperFileManager extends FileManager {
 	 * Copies an existing PaperFile and renames it.
 	 * @param $sourceFileId int
 	 * @param $sourceRevision int
-	 * @param $destType string
+	 * @param $destUseCase string
 	 * @param $destFileId int (optional)
 	 */
-	function copyAndRenameFile($sourceFileId, $sourceRevision, $destType, $destFileId = null) {
+	function copyAndRenameFile($sourceFileId, $sourceRevision, $destUseCase, $destFileId = null) {
 		$paperFileDao =& DAORegistry::getDAO('PaperFileDAO');
 		$paperFile = new PaperFile();
 
-		$destTypePath = $this->typeToPath($destType);
-		$destDir = $this->filesDir . $destTypePath . '/';
+		$destUseCasePath = $this->useCaseToPath($destUseCase);
+		$destDir = $this->filesDir . $destUseCasePath . '/';
 
 		if ($destFileId != null) {
 			$currentRevision = $paperFileDao->getRevisionNumber($destFileId);
@@ -384,7 +384,7 @@ class PaperFileManager extends FileManager {
 			return false;
 		}
 
-		$sourceDir = $this->filesDir . $this->typeToPath($sourcePaperFile->getType()) . '/';
+		$sourceDir = $this->filesDir . $this->useCaseToPath($sourcePaperFile->getUseCase()) . '/';
 
 		if ($destFileId != null) {
 			$paperFile->setFileId($destFileId);
@@ -394,7 +394,7 @@ class PaperFileManager extends FileManager {
 		$paperFile->setFileType($sourcePaperFile->getFileType());
 		$paperFile->setFileSize($sourcePaperFile->getFileSize());
 		$paperFile->setOriginalFileName(PaperFileManager::truncateFileName($sourcePaperFile->getFileName(), 127));
-		$paperFile->setType($destType);
+		$paperFile->setUseCase($destUseCase);
 		$paperFile->setDateUploaded(Core::getCurrentDate());
 		$paperFile->setDateModified(Core::getCurrentDate());
 		$paperFile->setRound($this->paper->getCurrentRound());
@@ -404,7 +404,7 @@ class PaperFileManager extends FileManager {
 
 		// Rename the file.
 		$fileExtension = $this->parseFileExtension($sourcePaperFile->getFileName());
-		$newFileName = $this->paperId.'-'.$fileId.'-'.$revision.'-'.$this->typeToAbbrev($destType).'.'.$fileExtension;
+		$newFileName = $this->paperId.'-'.$fileId.'-'.$revision.'-'.$this->useCaseToAbbrev($destUseCase).'.'.$fileExtension;
 
 		if (!$this->fileExists($destDir, 'dir')) {
 			// Try to create destination directory
@@ -432,7 +432,7 @@ class PaperFileManager extends FileManager {
 		$paperFile->setOriginalFileName('temp');
 		$paperFile->setFileType('temp');
 		$paperFile->setFileSize(0);
-		$paperFile->setType('temp');
+		$paperFile->setUseCase(0);
 		$paperFile->setDateUploaded(Core::getCurrentDate());
 		$paperFile->setDateModified(Core::getCurrentDate());
 		$paperFile->setRound(0);
@@ -460,12 +460,12 @@ class PaperFileManager extends FileManager {
 	 * PRIVATE routine to generate a filename for a paper file. Sets the filename
 	 * field in the paperFile to the generated value.
 	 * @param $paperFile The paper to generate a filename for
-	 * @param $type The type of the paper (e.g. as supplied to handleUpload)
+	 * @param $useCase The use case of the paper (e.g. as supplied to handleUpload)
 	 * @param $originalName The name of the original file
 	 */
-	function generateFilename(&$paperFile, $type, $originalName) {
+	function generateFilename(&$paperFile, $useCase, $originalName) {
 		$extension = $this->parseFileExtension($originalName);
-		$newFileName = $paperFile->getPaperId().'-'.$paperFile->getFileId().'-'.$paperFile->getRevision().'-'.$this->typeToAbbrev($type).'.'.$extension;
+		$newFileName = $paperFile->getPaperId().'-'.$paperFile->getFileId().'-'.$paperFile->getRevision().'-'.$this->useCaseToAbbrev($useCase).'.'.$extension;
 		$paperFile->setFileName($newFileName);
 		return $newFileName;
 	}
@@ -473,18 +473,18 @@ class PaperFileManager extends FileManager {
 	/**
 	 * PRIVATE routine to upload the file and add it to the database.
 	 * @param $fileName string index into the $_FILES array
-	 * @param $type string identifying type
+	 * @param $useCase string identifying use case
 	 * @param $fileId int ID of an existing file to update
 	 * @param $overwrite boolean overwrite all previous revisions of the file (revision number is still incremented)
 	 * @return int the file ID (false if upload failed)
 	 */
-	function handleUpload($fileName, $type, $fileId = null, $overwrite = false) {
+	function handleUpload($fileName, $useCase, $fileId = null, $overwrite = false) {
 		if ($this->uploadError($fileName)) return false;
 
 		$paperFileDao =& DAORegistry::getDAO('PaperFileDAO');
 
-		$typePath = $this->typeToPath($type);
-		$dir = $this->filesDir . $typePath . '/';
+		$useCasePath = $this->useCaseToPath($useCase);
+		$dir = $this->filesDir . $useCasePath . '/';
 
 		if (!$fileId) {
 			// Insert dummy file to generate file id FIXME?
@@ -503,10 +503,10 @@ class PaperFileManager extends FileManager {
 		$paperFile->setFileType($_FILES[$fileName]['type']);
 		$paperFile->setFileSize($_FILES[$fileName]['size']);
 		$paperFile->setOriginalFileName(PaperFileManager::truncateFileName($_FILES[$fileName]['name'], 127));
-		$paperFile->setType($type);
+		$paperFile->setUseCase($useCase);
 		$paperFile->setRound($this->paper->getCurrentRound());
 
-		$newFileName = $this->generateFilename($paperFile, $type, $this->getUploadedFileName($fileName));
+		$newFileName = $this->generateFilename($paperFile, $useCase, $this->getUploadedFileName($fileName));
 
 		if (!$this->uploadFile($fileName, $dir.$newFileName)) {
 			// Delete the dummy file we inserted
@@ -528,16 +528,16 @@ class PaperFileManager extends FileManager {
 	 * @param $fileName original filename of the file
 	 * @param $contents string contents of the file to write
 	 * @param $mimeType string the mime type of the file
-	 * @param $type string identifying type
+	 * @param $useCase string identifying case
 	 * @param $fileId int ID of an existing file to update
 	 * @param $overwrite boolean overwrite all previous revisions of the file (revision number is still incremented)
 	 * @return int the file ID (false if upload failed)
 	 */
-	function handleWrite($fileName, &$contents, $mimeType, $type, $fileId = null, $overwrite = false) {
+	function handleWrite($fileName, &$contents, $mimeType, $useCase, $fileId = null, $overwrite = false) {
 		$paperFileDao =& DAORegistry::getDAO('PaperFileDAO');
 
-		$typePath = $this->typeToPath($type);
-		$dir = $this->filesDir . $typePath . '/';
+		$useCasePath = $this->useCaseToPath($useCase);
+		$dir = $this->filesDir . $useCasePath . '/';
 
 		if (!$fileId) {
 			// Insert dummy file to generate file id FIXME?
@@ -556,10 +556,10 @@ class PaperFileManager extends FileManager {
 		$paperFile->setFileType($mimeType);
 		$paperFile->setFileSize(strlen($contents));
 		$paperFile->setOriginalFileName(PaperFileManager::truncateFileName($fileName, 127));
-		$paperFile->setType($type);
+		$paperFile->setUseCase($useCase);
 		$paperFile->setRound($this->paper->getCurrentRound());
 
-		$newFileName = $this->generateFilename($paperFile, $type, $fileName);
+		$newFileName = $this->generateFilename($paperFile, $useCase, $fileName);
 
 		if (!$this->writeFile($dir.$newFileName, $contents)) {
 			// Delete the dummy file we inserted
@@ -580,16 +580,16 @@ class PaperFileManager extends FileManager {
 	 * PRIVATE routine to copy a paper file and add it to the database.
 	 * @param $url original filename/url of the file
 	 * @param $mimeType string the mime type of the file
-	 * @param $type string identifying type
+	 * @param $useCase string identifying use case
 	 * @param $fileId int ID of an existing file to update
 	 * @param $overwrite boolean overwrite all previous revisions of the file (revision number is still incremented)
 	 * @return int the file ID (false if upload failed)
 	 */
-	function handleCopy($url, $mimeType, $type, $fileId = null, $overwrite = false) {
+	function handleCopy($url, $mimeType, $useCase, $fileId = null, $overwrite = false) {
 		$paperFileDao =& DAORegistry::getDAO('PaperFileDAO');
 
-		$typePath = $this->typeToPath($type);
-		$dir = $this->filesDir . $typePath . '/';
+		$useCasePath = $this->useCaseToPath($useCase);
+		$dir = $this->filesDir . $useCasePath . '/';
 
 		if (!$fileId) {
 			// Insert dummy file to generate file id FIXME?
@@ -607,10 +607,10 @@ class PaperFileManager extends FileManager {
 
 		$paperFile->setFileType($mimeType);
 		$paperFile->setOriginalFileName(PaperFileManager::truncateFileName(basename($url), 127));
-		$paperFile->setType($type);
+		$paperFile->setUseCase($useCase);
 		$paperFile->setRound($this->paper->getCurrentRound());
 
-		$newFileName = $this->generateFilename($paperFile, $type, $paperFile->getOriginalFileName());
+		$newFileName = $this->generateFilename($paperFile, $useCase, $paperFile->getOriginalFileName());
 
 		if (!$this->copyFile($url, $dir.$newFileName)) {
 			// Delete the dummy file we inserted

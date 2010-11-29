@@ -19,13 +19,13 @@
 import('lib.pkp.classes.submission.SubmissionFile');
 
 /* File type IDs */
-define('PAPER_FILE_SUBMISSION', 0x000001);
-define('PAPER_FILE_REVIEW',     0x000002);
-define('PAPER_FILE_DIRECTOR',   0x000003);
-define('PAPER_FILE_LAYOUT',     0x000004);
-define('PAPER_FILE_PUBLIC',     0x000005);
-define('PAPER_FILE_SUPP',       0x000006);
-define('PAPER_FILE_NOTE',       0x000007);
+define('PAPER_FILE_USE_CASE_SUBMISSION', 0x000001);
+define('PAPER_FILE_USE_CASE_REVIEW',     0x000002);
+define('PAPER_FILE_USE_CASE_DIRECTOR',   0x000003);
+define('PAPER_FILE_USE_CASE_LAYOUT',     0x000004);
+define('PAPER_FILE_USE_CASE_PUBLIC',     0x000005);
+define('PAPER_FILE_USE_CASE_SUPP',       0x000006);
+define('PAPER_FILE_USE_CASE_NOTE',       0x000007);
 
 class PaperFile extends SubmissionFile {
 
@@ -48,7 +48,7 @@ class PaperFile extends SubmissionFile {
 		$schedConf =& $schedConfDao->getSchedConf($paperId);
 
 		return Config::getVar('files', 'files_dir') . '/conferences/' . $schedConf->getConferenceId() . '/schedConfs/' . $paperId .
-		'/papers/' . $this->getPaperId() . '/' . $this->getType() . '/' . $this->getFileName();
+		'/papers/' . $this->getPaperId() . '/' . $this->getUseCase() . '/' . $this->getFileName();
 	}
 
 	//
