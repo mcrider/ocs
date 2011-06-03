@@ -743,7 +743,8 @@ class ImportOCS1 {
 				@$author->setUrl($urls[$key]); // Suppress warnings from inconsistent OCS 1.x data
 				$author->setPrimaryContact($key == 0 ? 1 : 0);
 
-				$paper->addAuthor($author);
+				$authorDao =& DAORegistry::getDAO('AuthorDAO'); /* @var $authorDao AuthorDAO */
+				$authorDao->insertAuthor($author);
 
 				unset($author);
 			}
