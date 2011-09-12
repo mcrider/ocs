@@ -1351,8 +1351,8 @@ import('classes.file.PaperFileManager');
 	 * @param $reviewId int
 	 * @param $emailComment boolean
 	 */
-	function postPeerReviewComment(&$paper, $reviewId, $emailComment) {
-		if (HookRegistry::call('TrackDirectorAction::postPeerReviewComment', array(&$paper, &$reviewId, &$emailComment))) return;
+	function postPeerReviewComment(&$request, &$paper, $reviewId, $emailComment) {
+		if (HookRegistry::call('TrackDirectorAction::postPeerReviewComment', array(&$request, &$paper, &$reviewId, &$emailComment))) return;
 
 		import('classes.submission.form.comment.PeerReviewCommentForm');
 
@@ -1363,14 +1363,14 @@ import('classes.file.PaperFileManager');
 			$commentForm->execute();
 
 			// Send a notification to associated users
-			import('lib.pkp.classes.notification.NotificationManager');
+			import('classes.notification.NotificationManager');
 			$notificationManager = new NotificationManager();
 			$notificationUsers = $paper->getAssociatedUserIds();
+			$conference = $request->getConference();
 			foreach ($notificationUsers as $userRole) {
-				$url = Request::url(null, null, $userRole['role'], 'submissionReview', $paper->getId(), null, 'peerReview');
 				$notificationManager->createNotification(
-					$userRole['id'], 'notification.type.reviewerComment',
-					$paper->getLocalizedTitle(), $url, 1, NOTIFICATION_TYPE_REVIEWER_COMMENT
+					$request, $userRole['id'], NOTIFICATION_TYPE_REVIEWER_COMMENT,
+					$conference->getId(), ASSOC_TYPE_PAPER, $paper->getId()
 				);
 			}
 
@@ -1404,8 +1404,8 @@ import('classes.file.PaperFileManager');
 	 * @param $paper int
 	 * @param $emailComment boolean
 	 */
-	function postDirectorDecisionComment($paper, $emailComment) {
-		if (HookRegistry::call('TrackDirectorAction::postDirectorDecisionComment', array(&$paper, &$emailComment))) return;
+	function postDirectorDecisionComment(&$request, $paper, $emailComment) {
+		if (HookRegistry::call('TrackDirectorAction::postDirectorDecisionComment', array(&$request, &$paper, &$emailComment))) return;
 
 		import('classes.submission.form.comment.DirectorDecisionCommentForm');
 
@@ -1416,14 +1416,14 @@ import('classes.file.PaperFileManager');
 			$commentForm->execute();
 
 			// Send a notification to associated users
-			import('lib.pkp.classes.notification.NotificationManager');
+			import('classes.notification.NotificationManager');
 			$notificationManager = new NotificationManager();
 			$notificationUsers = $paper->getAssociatedUserIds(true, false);
+			$conference = $request->getConference();
 			foreach ($notificationUsers as $userRole) {
-				$url = Request::url(null, null, $userRole['role'], 'submissionReview', $paper->getId(), null, 'directorDecision');
 				$notificationManager->createNotification(
-					$userRole['id'], 'notification.type.directorDecisionComment',
-					$paper->getLocalizedTitle(), $url, 1, NOTIFICATION_TYPE_DIRECTOR_DECISION_COMMENT
+					$request, $userRole['id'], NOTIFICATION_TYPE_DIRECTOR_DECISION_COMMENT,
+					$conference->getId(), ASSOC_TYPE_PAPER, $paper->getId()
 				);
 			}
 
