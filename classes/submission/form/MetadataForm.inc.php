@@ -52,6 +52,7 @@ class MetadataForm extends Form {
 		if ($this->canEdit) {
 			parent::Form('submission/metadata/metadataEdit.tpl');
 			$this->addCheck(new FormValidatorLocale($this, 'title', 'required', 'author.submit.form.titleRequired'));
+			$this->addCheck(new FormValidatorLocale($this, 'theme', 'required', 'author.submit.form.themeRequired'));
 			$this->addCheck(new FormValidatorArray($this, 'authors', 'required', 'author.submit.form.authorRequiredFields', array('firstName', 'lastName')));
 			$this->addCheck(new FormValidatorArrayCustom($this, 'authors', 'required', 'author.submit.form.authorRequiredFields', create_function('$email, $regExp', 'return String::regexp_match($regExp, $email);'), array(ValidatorEmail::getRegexp()), false, array('email')));
 			$this->addCheck(new FormValidatorArrayCustom($this, 'authors', 'required', 'user.profile.form.urlInvalid', create_function('$url, $regExp', 'return empty($url) ? true : String::regexp_match($regExp, $url);'), array(ValidatorUrl::getRegexp()), false, array('url')));
@@ -80,6 +81,7 @@ class MetadataForm extends Form {
 				'authors' => array(),
 				'title' => $paper->getTitle(null), // Localized
 				'abstract' => $paper->getAbstract(null), // Localized
+				'theme' => $paper->getTheme(null), // Localized
 				'discipline' => $paper->getDiscipline(null), // Localized
 				'subjectClass' => $paper->getSubjectClass(null), // Localized
 				'subject' => $paper->getSubject(null), // Localized
@@ -121,7 +123,7 @@ class MetadataForm extends Form {
 	 * @return array
 	 */
 	function getLocaleFieldNames() {
-		return array('title', 'abstract', 'subjectClass', 'subject', 'coverageGeo', 'coverageChron', 'coverageSample', 'type', 'sponsor', 'citations');
+		return array('title', 'abstract', 'subjectClass', 'theme', 'subject', 'coverageGeo', 'coverageChron', 'coverageSample', 'type', 'sponsor', 'citations');
 	}
 
 	/**
@@ -141,6 +143,11 @@ class MetadataForm extends Form {
 
 		$countryDao =& DAORegistry::getDAO('CountryDAO');
 		$templateMgr->assign('countries', $countryDao->getCountries());
+
+
+		$themeText = $schedConf->getLocalizedSetting('metaThemeExamples');
+		$themes = array_map('trim', split(";", $themeText));
+		$templateMgr->assign('themeExamples', $themes);
 
 		$templateMgr->assign('helpTopicId','submission.indexingMetadata');
 		if ($this->paper) {
@@ -162,6 +169,7 @@ class MetadataForm extends Form {
 				'primaryContact',
 				'title',
 				'abstract',
+				'theme',
 				'discipline',
 				'subjectClass',
 				'subject',
@@ -193,6 +201,7 @@ class MetadataForm extends Form {
 		$track =& $trackDao->getTrack($paper->getTrackId());
 		$paper->setAbstract($this->getData('abstract'), null); // Localized
 
+		$paper->setTheme($this->getData('theme'), null); // Localized
 		$paper->setDiscipline($this->getData('discipline'), null); // Localized
 		$paper->setSubjectClass($this->getData('subjectClass'), null); // Localized
 		$paper->setSubject($this->getData('subject'), null); // Localized

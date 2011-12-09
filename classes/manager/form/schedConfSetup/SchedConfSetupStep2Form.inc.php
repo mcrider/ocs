@@ -30,7 +30,9 @@ class SchedConfSetupStep2Form extends SchedConfSetupForm {
 			'authorGuidelines' => 'string',
 			'submissionChecklist' => 'object',
 			'metaDiscipline' => 'bool',
+			'metaTheme' => 'bool',
 			'metaDisciplineExamples' => 'string',
+			'metaThemeExamples' => 'string',
 			'metaSubjectClass' => 'bool',
 			'metaSubjectClassTitle' => 'string',
 			'metaSubjectClassUrl' => 'string',
@@ -90,7 +92,7 @@ class SchedConfSetupStep2Form extends SchedConfSetupForm {
 	 * @return array
 	 */
 	function getLocaleFieldNames() {
-		return array('cfpMessage', 'authorGuidelines', 'submissionChecklist', 'metaDisciplineExamples', 'metaSubjectClassTitle', 'metaSubjectExamples', 'metaCoverageGeoExamples', 'metaCoverageChronExamples', 'metaCoverageResearchSampleExamples', 'metaTypeExamples', 'paperTypes');
+		return array('cfpMessage', 'authorGuidelines', 'submissionChecklist', 'metaThemeExamples', 'metaDisciplineExamples', 'metaSubjectClassTitle', 'metaSubjectExamples', 'metaCoverageGeoExamples', 'metaCoverageChronExamples', 'metaCoverageResearchSampleExamples', 'metaTypeExamples', 'paperTypes');
 	}
 
 	function display() {

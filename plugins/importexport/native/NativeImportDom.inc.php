@@ -283,7 +283,17 @@ class NativeImportDom {
 			$paper->setAbstract($node->getValue(), $locale);
 		}
 
-		if (($indexingNode = $paperNode->getChildByName('indexing'))) {			
+		if (($indexingNode = $paperNode->getChildByName('indexing'))) {
+			for ($index=0; ($node = $indexingNode->getChildByName('theme', $index)); $index++) {
+				$locale = $node->getAttribute('locale');
+				if ($locale == '') {
+					$locale = $conferencePrimaryLocale;
+				} elseif (!in_array($locale, $conferenceSupportedLocales)) {
+					$errors[] = array('plugins.importexport.native.import.error.paperThemeLocaleUnsupported', array('paperTitle' => $paper->getLocalizedTitle(), 'locale' => $locale));
+					return false;
+				}
+				$paper->setTheme($node->getValue(), $locale);
+			}
 			for ($index=0; ($node = $indexingNode->getChildByName('discipline', $index)); $index++) {
 				$locale = $node->getAttribute('locale');
 				if ($locale == '') {

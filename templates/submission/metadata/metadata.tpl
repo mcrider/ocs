@@ -80,12 +80,12 @@
 
 <div id="indexing">
 <h4>{translate key="submission.indexing"}</h4>
-	
+
 <table width="100%" class="data">
-	{if $currentSchedConf->getSetting('metaDiscipline')}
+	{if $currentSchedConf->getSetting('metaTheme')}
 	<tr valign="top">
-		<td width="20%" class="label">{translate key="paper.discipline"}</td>
-		<td width="80%" class="value">{$submission->getLocalizedDiscipline()|escape|default:"&mdash;"}</td>
+		<td width="20%" class="label">{translate key="paper.theme"}</td>
+		<td width="80%" class="value">{$submission->getLocalizedTheme()|escape|default:"&mdash;"}</td>
 	</tr>
 	<tr>
 		<td colspan="2" class="separator">&nbsp;</td>

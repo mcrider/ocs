@@ -177,6 +177,32 @@ class Paper extends Submission {
 	}
 
 	/**
+	 * Return the localized theme
+	 * @return string
+	 */
+	function getLocalizedTheme() {
+		return $this->getLocalizedData('theme');
+	}
+
+	/**
+	 * Get discipline
+	 * @param $locale
+	 * @return string
+	 */
+	function getTheme($locale) {
+		return $this->getData('theme', $locale);
+	}
+
+	/**
+	 * Set theme
+	 * @param $theme string
+	 * @param $locale
+	 */
+	function setTheme($theme, $locale) {
+		return $this->setData('theme', $theme, $locale);
+	}
+
+	/**
 	 * Return the localized discipline. DEPRECATED in favour
 	 * of getLocalizedDiscipline.
 	 * @param $locale string

@@ -78,6 +78,14 @@ class NativeExportDom {
 		$indexingNode =& XMLCustomWriter::createElement($doc, 'indexing');
 		$isIndexingNecessary = false;
 
+		if (is_array($paper->getTheme(null))) foreach ($paper->getTheme(null) as $locale => $theme) {
+			$themeNode =& XMLCustomWriter::createChildWithText($doc, $indexingNode, 'theme', $theme, false);
+			if ($themeNode) {
+				XMLCustomWriter::setAttribute($themeNode, 'locale', $locale);
+				$isIndexingNecessary = true;
+			}
+			unset($themeNode);
+		}
 		if (is_array($paper->getDiscipline(null))) foreach ($paper->getDiscipline(null) as $locale => $discipline) {
 			$disciplineNode =& XMLCustomWriter::createChildWithText($doc, $indexingNode, 'discipline', $discipline, false);
 			if ($disciplineNode) {

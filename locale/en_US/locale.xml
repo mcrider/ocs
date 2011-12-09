@@ -169,6 +169,7 @@
 	<message key="paper.suppFile">Supplementary File</message>
 	<message key="paper.suppFiles">Supplementary File(s)</message>
 	<message key="paper.suppFilesAbbrev">Supp. files</message>
+	<message key="paper.discipline">Theme</message>
 	<message key="paper.discipline">Academic discipline and sub-disciplines</message>
 	<message key="paper.subjectClassification">Subject classification</message>
 	<message key="paper.subject">Keywords</message>

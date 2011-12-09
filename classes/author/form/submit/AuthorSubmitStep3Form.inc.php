@@ -25,6 +25,7 @@ class AuthorSubmitStep3Form extends AuthorSubmitForm {
 
 		// Validation checks for this form
 		$this->addCheck(new FormValidatorCustom($this, 'authors', 'required', 'author.submit.form.authorRequired', create_function('$authors', 'return count($authors) > 0;')));
+		$this->addCheck(new FormValidatorLocale($this, 'theme', 'required', 'author.submit.form.themeRequired'));
 		$this->addCheck(new FormValidatorArray($this, 'authors', 'required', 'author.submit.form.authorRequiredFields', array('firstName', 'lastName')));
 		$this->addCheck(new FormValidatorArrayCustom($this, 'authors', 'required', 'author.submit.form.authorRequiredFields', create_function('$email, $regExp', 'return String::regexp_match($regExp, $email);'), array(ValidatorEmail::getRegexp()), false, array('email')));
 		$this->addCheck(new FormValidatorArrayCustom($this, 'authors', 'required', 'user.profile.form.urlInvalid', create_function('$url, $regExp', 'return empty($url) ? true : String::regexp_match($regExp, $url);'), array(ValidatorUrl::getRegexp()), false, array('url')));
@@ -56,6 +57,7 @@ class AuthorSubmitStep3Form extends AuthorSubmitForm {
 				'authors' => array(),
 				'title' => $paper->getTitle(null), // Localized
 				'abstract' => $paper->getAbstract(null), // Localized
+				'theme' => $paper->getTheme(null), //localized
 				'discipline' => $paper->getDiscipline(null), // Localized
 				'subjectClass' => $paper->getSubjectClass(null), // Localized
 				'subject' => $paper->getSubject(null), // Localized
@@ -101,6 +103,7 @@ class AuthorSubmitStep3Form extends AuthorSubmitForm {
 			'deletedAuthors',
 			'primaryContact',
 			'title',
+			'theme',
 			'discipline',
 			'subjectClass',
 			'subject',
@@ -131,7 +134,7 @@ class AuthorSubmitStep3Form extends AuthorSubmitForm {
 	 * @return array
 	 */
 	function getLocaleFieldNames() {
-		$returner = array('title', 'subjectClass', 'subject', 'coverageGeo', 'coverageChron', 'coverageSample', 'type', 'sponsor');
+		$returner = array('title', 'subjectClass', 'theme', 'subject', 'coverageGeo', 'coverageChron', 'coverageSample', 'type', 'sponsor');
 		$schedConf =& Request::getSchedConf();
 		$reviewMode = $this->paper->getReviewMode();
 		if ($reviewMode != REVIEW_MODE_PRESENTATIONS_ALONE) {
@@ -157,6 +160,11 @@ class AuthorSubmitStep3Form extends AuthorSubmitForm {
 		$schedConf =& Request::getSchedConf();
 		$reviewMode = $this->paper->getReviewMode();
 		$templateMgr->assign('collectAbstracts', $reviewMode != REVIEW_MODE_PRESENTATIONS_ALONE);
+
+		$themeText = $schedConf->getLocalizedSetting('metaThemeExamples');
+		$themes = array_map('trim', split(";", $themeText));
+		$templateMgr->assign('themeExamples', $themes);
+
 		parent::display();
 	}
 
@@ -180,6 +188,7 @@ class AuthorSubmitStep3Form extends AuthorSubmitForm {
 			$paper->setAbstract($this->getData('abstract'), null); // Localized
 		}
 
+		$paper->setTheme($this->getData('theme'), null); // Localized
 		$paper->setDiscipline($this->getData('discipline'), null); // Localized
 		$paper->setSubjectClass($this->getData('subjectClass'), null); // Localized
 		$paper->setSubject($this->getData('subject'), null); // Localized

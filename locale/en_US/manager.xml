@@ -388,6 +388,10 @@
 	<message key="manager.schedConfSetup.submissions.submissionMaterials">Submission Materials</message>
 	<message key="manager.schedConfSetup.submissions.submissionProcess">Submission Process</message>
 	<message key="manager.schedConfSetup.submissions.suppFiles">Supplementary Materials</message>
+	<message key="manager.schedConfSetup.submissions.theme">Theme</message>
+	<message key="manager.schedConfSetup.submissions.themeDescription">Used for selection of thematic podium and poster sessions.</message>
+	<message key="manager.schedConfSetup.submissions.themeExamples">(E.g., Animation; Balance & Falls; Biomechatronics -- 'Other' will be automatically included)</message>
+	<message key="manager.schedConfSetup.submissions.themeProvideExamples">Provide examples of relevant themes for this conference</message>
 	<message key="manager.schedConfSetup.submissions.title">Step 2. Submissions</message>
 	<message key="manager.schedConfSetup.submissions.typeExamples">(E.g., Historical Inquiry; Quasi-Experimental; Literary Analysis; Survey/Interview)</message>
 	<message key="manager.schedConfSetup.submissions.typeMethodApproach">Type (Method/Approach)</message>

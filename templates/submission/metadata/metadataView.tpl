@@ -73,8 +73,17 @@
 
 
 <h3>{translate key="submission.indexing"}</h3>
-	
+
 <table width="100%" class="data">
+	{if $currentSchedConf->getSetting('metaTheme')}
+	<tr valign="top">
+		<td width="20%" class="label">{translate key="paper.theme"}</td>
+		<td width="80%" class="value">{$theme[$formLocale]|escape|default:"&mdash;"}</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="separator">&nbsp;</td>
+	</tr>
+	{/if}
 	{if $currentSchedConf->getSetting('metaDiscipline')}
 	<tr valign="top">
 		<td width="20%" class="label">{translate key="paper.discipline"}</td>

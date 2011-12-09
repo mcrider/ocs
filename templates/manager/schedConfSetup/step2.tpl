@@ -247,6 +247,30 @@
 
 <table width="100%" class="data">
 	<tr valign="top">
+		<td width="5%" class="label"><input type="checkbox" name="metaTheme" id="metaTheme" value="1"{if $metaTheme} checked="checked"{/if} /></td>
+		<td width="95%" class="value">
+			<strong>{fieldLabel name="metaTheme" key="manager.schedConfSetup.submissions.theme"}</strong>
+			<br />
+			<span class="instruct">{translate key="manager.schedConfSetup.submissions.themeDescription"}</span>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td>&nbsp;</td>
+		<td class="value">
+			<span class="instruct">{translate key="manager.schedConfSetup.submissions.themeProvideExamples"}:</span>
+			<br />
+			<textarea cols="40" rows="4" class="textArea" name="metaThemeExamples[{$formLocale|escape}]" id="metaThemeExamples" />{$metaThemeExamples[$formLocale]|escape}</textarea>
+			<br />
+			<span class="instruct">{translate key="manager.schedConfSetup.submissions.themeExamples"}</span>
+		</td>
+	</tr>
+
+	<tr>
+		<td class="separator" colspan="2"><br />&nbsp;</td>
+	</tr>
+
+
+	<tr valign="top">
 		<td width="5%" class="label"><input type="checkbox" name="metaDiscipline" id="metaDiscipline" value="1"{if $metaDiscipline} checked="checked"{/if} /></td>
 		<td width="95%" class="value">
 			<strong>{fieldLabel name="metaDiscipline" key="manager.schedConfSetup.submissions.discipline"}</strong>

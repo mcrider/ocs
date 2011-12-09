@@ -84,6 +84,7 @@ The following formats are accepted:
 	<message key="plugins.importexport.native.import.error.trackAbbrevMismatch">The track abbreviation "{$track1Abbrev}" and the track abbreviation "{$track2Abbrev}" matched the different existing conference tracks.</message>
 	<message key="plugins.importexport.native.import.error.trackAbbrevMatch">The track abbreviation "{$trackAbbrev}" matched an existing conference track, but another abbreviation of this track doesn't match with another abbreviation of the existing conference track.</message>
 
+	<message key="plugins.importexport.native.import.error.paperThemeLocaleUnsupported">A paper theme was provided for the paper "{$paperTitle}" in a locale ("{$locale}") that this conference does not support.</message>
 	<message key="plugins.importexport.native.import.error.paperDisciplineLocaleUnsupported">A paper discipline was provided for the paper "{$paperTitle}" in a locale ("{$locale}") that this conference does not support.</message>
 	<message key="plugins.importexport.native.import.error.paperTypeLocaleUnsupported">A paper type was provided for the paper "{$paperTitle}" in a locale ("{$locale}") that this conference does not support.</message>
 	<message key="plugins.importexport.native.import.error.paperSubjectLocaleUnsupported">A paper subject was provided for the paper "{$paperTitle}" in a locale ("{$locale}") that this conference does not support.</message>

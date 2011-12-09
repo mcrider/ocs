@@ -200,9 +200,28 @@ function moveAuthor(dir, authorIndex) {
 <div id="indexing">
 <h3>{translate key="submission.indexing"}</h3>
 
-{if $currentSchedConf->getSetting('metaDiscipline') || $currentSchedConf->getSetting('metaSubjectClass') || $currentSchedConf->getSetting('metaSubject') || $currentSchedConf->getSetting('metaCoverage') || $currentSchedConf->getSetting('metaType')}<p>{translate key="author.submit.submissionIndexingDescription"}</p>{/if}
+{if $currentSchedConf->getSetting('metaTheme') || $currentSchedConf->getSetting('metaDiscipline') || $currentSchedConf->getSetting('metaSubjectClass') || $currentSchedConf->getSetting('metaSubject') || $currentSchedConf->getSetting('metaCoverage') || $currentSchedConf->getSetting('metaType')}<p>{translate key="author.submit.submissionIndexingDescription"}</p>{/if}
 
 <table width="100%" class="data">
+	{if $currentSchedConf->getSetting('metaTheme')}
+	<tr valign="top">
+		<td{if $currentSchedConf->getLocalizedSetting('metaThemeExamples') != ''} rowspan="2"{/if} width="20%" class="label">{fieldLabel required='true' name="discipline" key="paper.theme"}</td>
+		<td width="80%" class="value">
+			<select name="theme[{$formLocale|escape}]" size="1" class="selectMenu">
+				<option value=""></option>
+				{foreach from=$themeExamples item=themeExample}
+					<option value="{$themeExample}"{if $themeExample == $theme.$formLocale}selected="true"{/if}>{$themeExample}</option>
+				{/foreach}
+				<option value="">----------</option>
+				<option value="Other">Other</option>
+			</select>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+	{/if}
 	{if $currentSchedConf->getSetting('metaDiscipline')}
 	<tr valign="top">
 		<td class="label">{fieldLabel name="discipline" key="paper.discipline"}</td>
