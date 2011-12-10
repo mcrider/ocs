@@ -34,7 +34,7 @@ class PaperDAO extends DAO {
 	 * @return array
 	 */
 	function getAdditionalFieldNames() {
-		return array('sessionType');
+		return array('sessionType', 'awards');
 	}
 
 	/**

@@ -223,6 +223,8 @@ function moveAuthor(dir, authorIndex) {
 			<option value="">----------</option>
 			<option value="Other">Other</option>
 		</select>
+		<br />
+		<span class="instruct">From the drop down list, please choose the Theme that best describes the submitted abstract. This information will be used for selection of thematic podium and poster sessions.</span>
 	</td>
 </tr>
 <tr valign="top">

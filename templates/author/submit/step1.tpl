@@ -40,7 +40,7 @@
 	<p>{translate key="author.submit.conferenceTrackDescription" aboutUrl=$url}</p>
 
 	<table class="data" width="100%">
-	<tr valign="top">	
+	<tr valign="top">
 		<td width="20%" class="label">{fieldLabel name="trackId" required="true" key="track.track"}</td>
 		<td width="80%" class="value"><select name="trackId" id="trackId" size="1" class="selectMenu">{html_options options=$trackOptions selected=$trackId}</select></td>
 	</tr>
@@ -158,6 +158,44 @@ function checkSubmissionChecklist() {
 </div>
 <div class="separator"></div>
 {/if}
+
+<div id="awardsChecklist">
+	<h3>Awards</h3>
+	<p>Please select any awards you would like to be considered for.</p>
+
+	<table width="100%" class="data">
+		<tr valign="top">
+			<td width="5%"><input type="checkbox" id="checklist-masters" name="awards[]" value="masters" {if in_array('masters', $awards)} checked="checked"{/if} /></td>
+			<td width="95%">
+				<label for="checklist-masters">
+					<b>NDI Masters Award</b><br />
+					<span>By checking this box, I acknowledge that I have read the qualification criteria (link TBD) and would like to be considered for this award. I understand that I must submit any additional required materials to the CSB Awards Chairperson (email TBD) by (deadline TBD) in order to be considered.</span>
+				</label>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="5%"><input type="checkbox" id="checklist-phd" name="awards[]" value="phd" {if in_array('phd', $awards)} checked="checked"{/if} /></td>
+			<td width="95%">
+				<label for="checklist-phd">
+					<b>NDI PhD Award</b><br />
+					<span>By checking this box, I acknowledge that I have read the qualification criteria (link TBD) and would like to be considered for this award. I understand that I must submit any additional required materials to the CSB Awards Chairperson (email TBD) by (deadline TBD) in order to be considered.</span>
+				</label>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="5%"><input type="checkbox" id="checklist-youngScientist" name="awards[]" value="youngScientist" {if in_array('youngScientist', $awards)} checked="checked"{/if} /></td>
+			<td width="95%">
+				<label for="checklist-youngScientist">
+					<b>NDI Young Scientist Award</b> <br />
+					<span>By checking this box, I acknowledge that I have read the qualification criteria (link TBD) and would like to be considered for this award. I understand that I must submit any additional required materials to the CSB Awards Chairperson (email TBD) by (deadline TBD) in order to be considered. </span>
+				</label>
+			</td>
+		</tr>
+
+	</table>
+	<br />
+	<div class="separator"></div>
+</div>
 
 {if ($currentSchedConf->getLocalizedSetting('privacyStatement')) != ''}
 <div id="privacyStatement">

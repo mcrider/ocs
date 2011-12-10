@@ -71,6 +71,18 @@
 			</form>
 		</td>
 	</tr>
+	<tr>
+		<td class="label">Award consideration</td>
+		<td class="value">
+			{foreach from=$submission->getData('awards') name=awards item=award}
+				{if $award == 'masters'}NDI Masters Award
+				{elseif $award == 'phd'}NDI PhD Award
+				{elseif $award == 'youngScientist'}NDI Young Scientist Award
+				{/if}
+				{if !$smarty.foreach.awards.last}, {/if}
+			{/foreach}
+		</td>
+	</tr>
 
 	{assign var=sessionType value=$submission->getData('sessionType')}
 	{if is_array($sessionTypes) && !empty($sessionTypes) && !(count($sessionTypes) == 1 && !empty($sessionType) && isset($sessionTypes[$sessionType]))}

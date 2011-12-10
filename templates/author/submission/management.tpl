@@ -77,6 +77,18 @@
 		<td width="20%" class="label">{translate key="track.track"}</td>
 		<td width="80%" colspan="2" class="data">{$submission->getTrackTitle()|escape}</td>
 	</tr>
+	<tr>
+			<td class="label">Award consideration</td>
+			<td class="value">
+				{foreach from=$submission->getData('awards') name=awards item=award}
+					{if $award == 'masters'}NDI Masters Award
+					{elseif $award == 'phd'}NDI PhD Award
+					{elseif $award == 'youngScientist'}NDI Young Scientist Award
+					{/if}
+					{if !$smarty.foreach.awards.last}, {/if}
+				{/foreach}
+			</td>
+		</tr>
 	<tr valign="top">
 		<td width="20%" class="label">{translate key="user.role.director"}</td>
 		{assign var="editAssignments" value=$submission->getEditAssignments()}

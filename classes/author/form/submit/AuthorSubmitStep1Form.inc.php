@@ -73,6 +73,7 @@ class AuthorSubmitStep1Form extends AuthorSubmitForm {
 			$this->_data = array(
 				'trackId' => $this->paper->getTrackId(),
 				'sessionType' => $this->paper->getData('sessionType'),
+				'awards' => $this->paper->getData('awards'),
 				'commentsToDirector' => $this->paper->getCommentsToDirector()
 			);
 		}
@@ -82,7 +83,7 @@ class AuthorSubmitStep1Form extends AuthorSubmitForm {
 	 * Assign form data to user-submitted data.
 	 */
 	function readInputData() {
-		$this->readUserVars(array('submissionChecklist', 'copyrightNoticeAgree', 'trackId', 'commentsToDirector', 'sessionType'));
+		$this->readUserVars(array('awards', 'submissionChecklist', 'copyrightNoticeAgree', 'trackId', 'commentsToDirector', 'sessionType'));
 	}
 
 	/**
@@ -98,6 +99,7 @@ class AuthorSubmitStep1Form extends AuthorSubmitForm {
 			$this->paper->setTrackId($this->getData('trackId'));
 			$this->paper->setCommentsToDirector($this->getData('commentsToDirector'));
 			$this->paper->setData('sessionType', $this->getData('sessionType'));
+			$this->paper->setData('awards', $this->getData('awards'));
 			if ($this->paper->getSubmissionProgress() <= $this->step) {
 				$this->paper->stampStatusModified();
 				if($reviewMode == REVIEW_MODE_ABSTRACTS_ALONE) {
@@ -153,6 +155,7 @@ class AuthorSubmitStep1Form extends AuthorSubmitForm {
 			$this->paper->addAuthor($author);
 
 			$this->paper->setData('sessionType', $this->getData('sessionType'));
+			$this->paper->setData('sessionType', $this->getData('awards'));
 
 			$paperDao->insertPaper($this->paper);
 			$this->paperId = $this->paper->getPaperId();

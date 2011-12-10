@@ -53,6 +53,15 @@ function confirmSubmissionCheck() {
 	</tr>
 {/if}{* isset($sessionTypes[$submissionType]) *}
 
+{assign var=awards value=$submission->getData('awards')}
+{if isset($sessionTypes[$sessionType])}
+	<tr valign="top">
+		<td width="20%" class="label">Awards</td>
+		<td width="80%" colspan="2" class="data">{$awards|escape}</td>
+	</tr>
+{/if}{* isset($sessionTypes[$submissionType]) *}
+
+
 <tr valign="top">
 	<td class="label">{translate key="paper.conferenceTrack"}</td>
 	<td class="value">{$submission->getTrackTitle()|escape}</td>
