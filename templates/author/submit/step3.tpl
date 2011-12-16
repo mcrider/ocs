@@ -74,6 +74,15 @@ function moveAuthor(dir, authorIndex) {
 
 <table width="100%" class="data">
 <tr valign="top">
+	<td width="20%" class="label">{fieldLabel name="authors-$authorIndex-salutation" key="user.salutation"}</td>
+	<td width="80%" class="value">
+		<select name="authors[{$authorIndex|escape}][salutation]" id="authors-{$authorIndex|escape}-salutation" class="selectMenu">
+			<option value=""></option>
+			{html_options options=$salutations selected=$author.salutation}
+		</select>
+	</td>
+</tr>
+<tr valign="top">
 	<td width="20%" class="label">{fieldLabel name="authors-$authorIndex-firstName" required="true" key="user.firstName"}</td>
 	<td width="80%" class="value"><input type="text" class="textField" name="authors[{$authorIndex|escape}][firstName]" id="authors-{$authorIndex|escape}-firstName" value="{$author.firstName|escape}" size="20" maxlength="40" /></td>
 </tr>
@@ -86,8 +95,23 @@ function moveAuthor(dir, authorIndex) {
 	<td width="80%" class="value"><input type="text" class="textField" name="authors[{$authorIndex|escape}][lastName]" id="authors-{$authorIndex|escape}-lastName" value="{$author.lastName|escape}" size="20" maxlength="90" /></td>
 </tr>
 <tr valign="top">
+	<td width="20%" class="label">{fieldLabel name="authors-$authorIndex-status" key="user.status"}</td>
+	<td width="80%" class="value">
+		<select name="authors[{$authorIndex|escape}][status]" id="authors-{$authorIndex|escape}-status" class="selectMenu">
+			<option value=""></option>
+			{html_options options=$statuses selected=$author.status}
+		</select>
+	</td>
+</tr>
+<tr valign="top">
 	<td width="20%" class="label">{fieldLabel name="authors-$authorIndex-email" required="true" key="user.email"}</td>
 	<td width="80%" class="value"><input type="text" class="textField" name="authors[{$authorIndex|escape}][email]" id="authors-{$authorIndex|escape}-email" value="{$author.email|escape}" size="30" maxlength="90" /></td>
+</tr>
+<tr valign="top">
+	<td class="label">&nbsp;</td>
+	<td class="value">
+		<input type="checkbox" id="currentMember" name="currentMember" {if $currentMember}checked="checked" {/if}/>Current CSB-SCB member?<br/>
+	</td>
 </tr>
 <tr valign="top">
 	<td class="label">{fieldLabel name="authors-$authorIndex-url" key="user.url"}</td>
@@ -106,6 +130,15 @@ function moveAuthor(dir, authorIndex) {
 		<select name="authors[{$authorIndex|escape}][country]" id="authors-{$authorIndex|escape}-country" class="selectMenu">
 			<option value=""></option>
 			{html_options options=$countries selected=$author.country}
+		</select>
+	</td>
+</tr>
+<tr valign="top">
+	<td width="20%" class="label">{fieldLabel name="authors-$authorIndex-stateProvince" key="common.stateProvince"}</td>
+	<td width="80%" class="value">
+		<select name="authors[{$authorIndex|escape}][stateProvince]" id="authors-{$authorIndex|escape}-stateProvince" class="selectMenu">
+			<option value=""></option>
+			{html_options options=$statesAndProvinces selected=$author.stateProvince}
 		</select>
 	</td>
 </tr>

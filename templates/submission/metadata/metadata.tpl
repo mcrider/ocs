@@ -17,7 +17,7 @@
 
 <div id="authors">
 <h4>{translate key="paper.authors"}</h4>
-	
+
 <table width="100%" class="data">
 	{foreach name=authors from=$submission->getAuthors() item=author}
 	<tr valign="top">
@@ -25,7 +25,7 @@
 		<td width="80%" class="value">
 			{assign var=emailString value=$author->getFullName()|concat:" <":$author->getEmail():">"}
 			{url|assign:"url" page="user" op="email" redirectUrl=$currentUrl to=$emailString|to_array subject=$submission->getLocalizedTitle()|strip_tags paperId=$submission->getPaperId()}
-			{$author->getFullName()|escape} {icon name="mail" url=$url}
+			{if $author->getData('salutation')}{$author->getData('salutation')} {/if}{$author->getFullName()|escape} {icon name="mail" url=$url}
 		</td>
 	</tr>
 	{if $author->getUrl()}
@@ -35,12 +35,24 @@
 		</tr>
 	{/if}
 	<tr valign="top">
+		<td class="label">{translate key="user.status"}</td>
+		<td class="value">{$author->getData('status')|strip_unsafe_html|nl2br|default:"&mdash;"}</td>
+	</tr>
+	<tr valign="top">
 		<td class="label">{translate key="user.affiliation"}</td>
 		<td class="value">{$author->getAffiliation()|strip_unsafe_html|nl2br|default:"&mdash;"}</td>
 	</tr>
 	<tr valign="top">
+		<td class="label">Current CSB-SCB member?</td>
+		<td class="value">{if $author->getData('currentMember')}Yes{else}No{/if}</td>
+	</tr>
+	<tr valign="top">
 		<td class="label">{translate key="common.country"}</td>
 		<td class="value">{$author->getCountryLocalized()|escape|default:"&mdash;"}</td>
+	</tr>
+	<tr valign="top">
+		<td class="label">{translate key="common.stateProvince"}</td>
+		<td class="value">{$author->getData('stateProvince')|escape|nl2br|default:"&mdash;"}</td>
 	</tr>
 	<tr valign="top">
 		<td class="label">{translate key="user.biography"}</td>
@@ -150,7 +162,7 @@
 
 <div id="supportingAgencies">
 <h4>{translate key="submission.supportingAgencies"}</h4>
-	
+
 <table width="100%" class="data">
 	<tr valign="top">
 		<td width="20%" class="label">{translate key="submission.agencies"}</td>

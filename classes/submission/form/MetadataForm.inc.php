@@ -108,7 +108,11 @@ class MetadataForm extends Form {
 						'countryLocalized' => $authors[$i]->getCountryLocalized(),
 						'email' => $authors[$i]->getEmail(),
 						'url' => $authors[$i]->getUrl(),
-						'biography' => $authors[$i]->getBiography(null) // Localized
+						'biography' => $authors[$i]->getBiography(null), // Localized
+						'currentMember' => $authors[$i]->getData('currentMember'),
+						'salutation' => $authors[$i]->getData('salutation'),
+						'status' => $authors[$i]->getData('status'),
+						'stateProvince' => $authors[$i]->getData('stateProvince')
 					)
 				);
 				if ($authors[$i]->getPrimaryContact()) {
@@ -144,6 +148,21 @@ class MetadataForm extends Form {
 		$countryDao =& DAORegistry::getDAO('CountryDAO');
 		$templateMgr->assign('countries', $countryDao->getCountries());
 
+		// Custom salutation list
+		$salutations = array('Mr.' => 'Mr.', 'Mrs.' => 'Mrs.', 'Miss' => 'Miss', 'Ms.' => 'Ms.', 'Dr.' => 'Dr.', 'Prof.' => 'Prof.', 'Other' => 'Other');
+		$templateMgr->assign_by_ref('salutations', $salutations);
+
+		// Custom status list
+		$statuses = array('Undergrad' => 'Undergrad', 'Grad Student' => 'Grad Student', 'Postdoc' => 'Postdoc', 'Assistant Prof.' => 'Assistant Prof.', 'Associate Prof.' => 'Associate Prof.', 'Full Prof.' => 'Full Prof.', 'Emeritus' => 'Emeritus', 'Other' => 'Other');
+		$templateMgr->assign_by_ref('statuses', $statuses);
+
+		// Custom state and province list
+		$stateAndProvinceList = array('Other','-----','Alberta','British Columbia','Manitoba','New Brunswick','Newfoundland','Northwest Territories','Nova Scotia','Nunavut','Ontario','Prince Edward Island','Quebec','Saskatchewan','Yukon','-----','Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Virgin Islands','Washington','West Virginia','Wisconsin','Wyoming');
+		foreach($stateAndProvinceList as $value) {
+			$index = $value == '-----' ? "" : $value;
+			$statesAndProvinces[$index] = $value;
+		}
+		$templateMgr->assign_by_ref('statesAndProvinces', $statesAndProvinces);
 
 		$themeText = $schedConf->getLocalizedSetting('metaThemeExamples');
 		$themes = array_map('trim', split(";", $themeText));
@@ -242,6 +261,11 @@ class MetadataForm extends Form {
 				$author->setBiography($authors[$i]['biography'], null); // Localized
 				$author->setPrimaryContact($this->getData('primaryContact') == $i ? 1 : 0);
 				$author->setSequence($authors[$i]['seq']);
+
+				$author->setData('currentMember', isset($authors[$i]['currentMember']) ? 1 : 0);
+				$author->setData('salutation', $authors[$i]['salutation']);
+				$author->setData('status', $authors[$i]['status']);
+				$author->setData('stateProvince', $authors[$i]['stateProvince']);
 
 				if ($isExistingAuthor == false) {
 					$paper->addAuthor($author);

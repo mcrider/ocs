@@ -186,6 +186,14 @@ class AuthorDAO extends DAO {
 	}
 
 	/**
+	 * Get a list of non-localized additional fields to maintain.
+	 * @return array
+	 */
+	function getAdditionalFieldNames() {
+		return array('currentMember', 'salutation', 'status', 'stateProvince');
+	}
+
+	/**
 	 * Get field names for which data is localized.
 	 * @return array
 	 */
@@ -233,7 +241,7 @@ class AuthorDAO extends DAO {
 	/**
 	 * Insert a new Author.
 	 * @param $author Author
-	 */	
+	 */
 	function insertAuthor(&$author) {
 		$this->update(
 			'INSERT INTO paper_authors
