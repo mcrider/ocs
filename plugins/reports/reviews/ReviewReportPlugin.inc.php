@@ -60,6 +60,8 @@ class ReviewReportPlugin extends ReportPlugin {
 		header('content-type: text/comma-separated-values; charset=utf-8');
 		header('content-disposition: attachment; filename=report.csv');
 
+		$paperDao = DAORegistry::getDAO('PaperDAO');
+
 		$reviewReportDao =& DAORegistry::getDAO('ReviewReportDAO');
 		list($commentsIterator, $reviewsIterator) = $reviewReportDao->getReviewReport($schedConf->getId());
 
@@ -102,7 +104,9 @@ class ReviewReportPlugin extends ReportPlugin {
 			'declined' => __('submissions.declined'),
 			'cancelled' => __('common.cancelled'),
 			'recommendation' => __('reviewer.paper.recommendation'),
-			'comments' => __('comments.commentsOnPaper')
+			'comments' => __('comments.commentsOnPaper'),
+			'reviewForm' => __('submission.reviewFormResponse'),
+			'authors' => __('paper.authors')
 		);
 		$yesNoArray = array('declined', 'cancelled');
 
@@ -122,12 +126,52 @@ class ReviewReportPlugin extends ReportPlugin {
 					$columns[$index] = $reviewTypes[$row[$index]];
 				} elseif ($index == "recommendation") {
 					$columns[$index] = (!isset($row[$index])) ? __('common.none') : __($recommendations[$row[$index]]);
+				} elseif ($index == "authors") {
+					$paper =& $paperDao->getPaper($row['paperid']);
+					$columns[$index] = $paper->getAuthorString();
 				} elseif ($index == "comments") {
 					if (isset($comments[$row['paperid']][$row['reviewerid']])) {
 						$columns[$index] = html_entity_decode(strip_tags($comments[$row['paperid']][$row['reviewerid']]), ENT_QUOTES, 'UTF-8');
 					} else {
 						$columns[$index] = "";
 					}
+				} elseif ($index == 'reviewForm') {
+					$body = '';
+
+					$reviewId = $row['reviewid'];
+
+					$reviewAssignmentDao =& DAORegistry::getDAO('ReviewAssignmentDAO');
+					$reviewAssignment = $reviewAssignmentDao->getReviewAssignmentById($reviewId);
+
+					if ($reviewFormId = $reviewAssignment->getReviewFormId()){
+						$reviewId = $reviewAssignment->getId();
+						
+						$reviewFormResponseDao =& DAORegistry::getDAO('ReviewFormResponseDAO');
+						$reviewFormElementDao =& DAORegistry::getDAO('ReviewFormElementDAO');
+						$reviewFormElements =& $reviewFormElementDao->getReviewFormElements($reviewFormId);
+
+						foreach ($reviewFormElements as $reviewFormElement) {
+							$body .= strip_tags($reviewFormElement->getLocalizedQuestion()) . ": \n";
+							$reviewFormResponse = $reviewFormResponseDao->getReviewFormResponse($reviewId, $reviewFormElement->getId());
+	
+							if ($reviewFormResponse) {
+								$possibleResponses = $reviewFormElement->getLocalizedPossibleResponses();
+								if (in_array($reviewFormElement->getElementType(), $reviewFormElement->getMultipleResponsesElementTypes())) {
+									if ($reviewFormElement->getElementType() == REVIEW_FORM_ELEMENT_TYPE_CHECKBOXES) {
+										foreach ($reviewFormResponse->getValue() as $value) {
+											$body .= "\t" . String::html2utf(strip_tags($possibleResponses[$value-1]['content'])) . "\n";
+										}
+									} else {
+										$body .= "\t" . String::html2utf(strip_tags($possibleResponses[$reviewFormResponse->getValue()-1]['content'])) . "\n";
+									}
+									$body .= "\n";
+								} else {
+									$body .= "\t" . String::html2utf(strip_tags($reviewFormResponse->getValue())) . "\n\n";
+								}
+							}
+						}
+					}
+					$columns[$index] = $body;
 				} else {
 					$columns[$index] = $row[$index];
 				}

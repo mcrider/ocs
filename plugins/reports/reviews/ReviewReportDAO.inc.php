@@ -52,6 +52,7 @@ class ReviewReportDAO extends DAO {
 				u.first_name AS firstName,
 				u.middle_name AS middleName,
 				u.last_name AS lastName,
+				r.review_id AS reviewId,
 				r.date_assigned AS dateAssigned,
 				r.date_notified AS dateNotified,
 				r.date_confirmed AS dateConfirmed,
